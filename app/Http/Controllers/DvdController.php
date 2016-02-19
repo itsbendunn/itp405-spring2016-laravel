@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\formats;
+use App\Models\format;
 use App\Models\genre;
-use App\Models\genres;
-use App\Models\labels;
-use App\Models\ratings;
+use App\Models\label;
+use App\Models\rating;
 use App\Models\review;
-use App\Models\sounds;
+use App\Models\sound;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -21,7 +20,12 @@ use App\Models\DVD;
 
 class DvdController extends Controller{
     public function search(){
-        return view('search');
+
+        $genres = genre::all();
+
+        return view('/dvds/search',[
+            'genres'=>$genres
+        ]);
     }
 
     public function results(Request $request){
@@ -32,7 +36,7 @@ class DvdController extends Controller{
         $rating = $request->input('rating');
 
         if(!$title){
-            return redirect('/search');
+            return redirect('/dvds/search');
         }
 
         if($genre == 'All' && $rating == 'All'){
@@ -84,7 +88,7 @@ class DvdController extends Controller{
                 ->get();
         }
 
-        return view('results', [
+        return view('/dvds/results', [
             'title' =>$title,
             'dvd'=>$dvd
         ]);
@@ -109,7 +113,7 @@ class DvdController extends Controller{
             ->get();
 
 
-        return view('details',[
+        return view('/dvds/details',[
             'id' => $id,
             'dvd'=>$dvd,
             'description' => $description
@@ -139,9 +143,6 @@ class DvdController extends Controller{
             'id' => $request->input('id')
         ]);
 
-        dd($dvd);
-
-
         $dvd->save();
 
 
@@ -151,14 +152,14 @@ class DvdController extends Controller{
 
     public function getInfo(){
 
-        $genres = genres::all();
-        $labels = labels::all();
-        $ratings = ratings::all();
-        $sounds = sounds::all();
-        $formats = formats::all();
+        $genres = genre::all();
+        $labels = label::all();
+        $ratings = rating::all();
+        $sounds = sound::all();
+        $formats = format::all();
 
 
-        return view('create', [
+        return view('/dvds/create', [
             'genres'=>$genres,
             'labels' =>$labels,
             'ratings' =>$ratings,
@@ -175,12 +176,16 @@ class DvdController extends Controller{
 
 
         $dvd->title = $request->input('title');
+        $dvd->label_id = $request->input('label');
         $dvd->genre_id = $request->input('genre');
         $dvd->rating_id = $request->input('rating');
         $dvd->sound_id = $request->input('sound');
-        $dvd->format_id = $request->input('formats');
+        $dvd->format_id = $request->input('format');
 
         $dvd->save();
+
+        return redirect::back()
+            ->with('success', true);
 
     }
 }

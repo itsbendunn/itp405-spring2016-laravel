@@ -12,9 +12,9 @@
 */
 Route::group(['middleware' => 'web'], function(){
 
-    Route::get('/search', 'DvdController@search');
+    Route::get('/dvds/search', 'DvdController@search');
 
-    Route::get('/results', 'DvdController@results');
+    Route::get('/dvds/results', 'DvdController@results');
 
     Route::get('/dvds/create', 'DvdController@getInfo');
 
@@ -22,7 +22,9 @@ Route::group(['middleware' => 'web'], function(){
 
     Route::post('/dvds/review', 'DvdController@create' );
 
-    Route::post('/dvds', 'DvdController@createDvd' );
+    Route::post('/dvds', 'DvdController@createDvd');
+
+    Route::get('/genres/{id}/dvds', 'GenreController@listGenre');
 
 
 

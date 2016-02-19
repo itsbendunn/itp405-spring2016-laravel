@@ -11,6 +11,10 @@
             Add a DVD
         </h2>
 
+        <?php if(session('success')) :?>
+            <p style="background-color: green; width: 20%; color: yellow">Dvd was successfully added.</p>
+        <?php endif ?>
+
         <form action="/dvds" method="post">
             <?php echo csrf_field()?>
             Title:
