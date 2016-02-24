@@ -12,6 +12,9 @@ class GenreController extends Controller
 {
 
 
+
+
+
     public function listGenre($id){
 
 //        $dvds = genre::find($id);

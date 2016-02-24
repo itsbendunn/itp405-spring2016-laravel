@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dvd extends Model
 {
+
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function rating(){
         return $this->belongsTo('App\Models\rating');
     }

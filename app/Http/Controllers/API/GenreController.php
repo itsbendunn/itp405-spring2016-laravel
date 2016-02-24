@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Models\Genre;
+use Response;
+
+class GenreController extends Controller
+{
+    public function index(){
+        $genres = Genre::all();
+
+        return[
+            'genres' => $genres
+        ];
+    }
+
+    public function show($id){
+        $genre = Genre::find($id);
+
+        if(!$genre){
+            return Response::json([
+                'error' => 'Genre not found'
+            ], 404);
+        }
+
+        return [
+
+            'genre' =>$genre
+        ];
+
+
+
+    }
+
+
+}

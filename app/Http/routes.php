@@ -10,6 +10,23 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
+
+Route::group(['prefix' =>'api/v1', 'namespace' =>'API'], function(){
+    Route::get('genres', 'GenreController@index');
+
+    Route::get('genres/{id}', 'GenreController@show');
+
+    Route::post('dvds', 'DvdController@store');
+
+    Route::get('dvds', 'DvdController@index');
+
+    Route::get('dvds/{id}','DvdController@show');
+
+
+
+});
+
 Route::group(['middleware' => 'web'], function(){
 
     Route::get('/dvds/search', 'DvdController@search');
