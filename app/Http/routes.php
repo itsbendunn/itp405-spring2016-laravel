@@ -43,8 +43,20 @@ Route::group(['middleware' => 'web'], function(){
 
     Route::get('/genres/{id}/dvds', 'GenreController@listGenre');
 
+});
 
+use App\Services\API\BestBuy;
 
+Route::get('/bestbuy/{searchTerm}', function($searchTerm){
+    $BestBuy = new BestBuy([
+        'accessToken' => '9ybcmx2ymwhzuqgwbuq2un9u'
+    ]);
+
+    $productList = $BestBuy->search($searchTerm);
+
+    return view('bestbuy', [
+        'productList' =>$productList
+    ]);
 });
 
 
