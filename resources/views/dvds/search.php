@@ -51,7 +51,7 @@ $results2 = $statement2->fetchAll(PDO::FETCH_OBJ);
                         All
                     </option>
                     <?php foreach ($results as $result) : ?>
-                        <option>
+                        <option value="<?php echo $result->genre_name?>">
                             <?php echo $result->genre_name?>
                         </option>
                     <?php endforeach;?>
@@ -63,7 +63,7 @@ $results2 = $statement2->fetchAll(PDO::FETCH_OBJ);
                         All
                     </option>
                     <?php foreach ($results2 as $ratings) : ?>
-                        <option>
+                        <option value="<?php echo $ratings->rating_name?>">
                             <?php echo $ratings->rating_name?>
                         </option>
                     <?php endforeach;?>
